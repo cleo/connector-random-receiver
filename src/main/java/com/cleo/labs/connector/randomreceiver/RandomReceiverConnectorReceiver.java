@@ -64,19 +64,27 @@ public class RandomReceiverConnectorReceiver extends ConnectorReceiver {
                     // receive a file
                     RandomConnectorReceive file = new RandomConnectorReceive(config.getSeed(),
                             RandomReceiverConnectorClient.parseLength(config.getLength()));
-                    logger.logError("receiving file "+file.getName());
+                    logger.debug("receiving file "+file.getName());
+                    ReceiverSession session = null;
                     try {
-                        ReceiverSession session;
                         if (Strings.isNullOrEmpty(config.getRecceiveTo())) {
                             session = getReceiverSessionFactory().newSession(receiver, TargetType.Inbox, null, null);
                         } else {
-                            session = getReceiverSessionFactory().newSession(receiver, TargetType.HostConnectionAlias, config.getRecceiveTo(),null);
+                            session = getReceiverSessionFactory().newSession(receiver, TargetType.HostConnectionAlias, config.getRecceiveTo(), null);
                         }
                         session.receive(new IConnectorReceive[]{file});
-                        session.end();
                     } catch (ConnectorException e) {
                         logger.logError("error receiving file "+file.getName());
                         logger.logThrowable(e);
+                    } finally {
+                        if (session != null) {
+                            try {
+                                session.end();
+                            } catch (ConnectorException e) {
+                                logger.logError("error ending session");
+                                logger.logThrowable(e);
+                            }
+                        }
                     }
                 }
             } catch (ConnectorPropertyException e) {
