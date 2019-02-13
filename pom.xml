@@ -11,7 +11,6 @@
     <name>connector-random-receiver</name>
     <url>http://maven.apache.org</url>
 
-    <!--
     <repositories>
         <repository>
             <id>cleo-public-release</id>
@@ -24,36 +23,6 @@
             <url>http://cleo.github.io.s3-website-us-west-1.amazonaws.com/snapshot</url>
             <snapshots>
                 <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    -->
-
-    <distributionManagement>
-        <repository>
-            <id>cleo_repo</id>
-            <name>Internal Releases</name>
-            <url>http://contd.cleo.com/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>cleo_repo</id>
-            <name>Internal Releases</name>
-            <url>http://contd.cleo.com/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <!-- Official Cleo's repository -->
-            <id>cleo_repo</id>
-            <name>Cleo's Repository</name>
-            <!-- <url>http://10.80.80.157:8081/nexus/content/groups/public/</url> -->
-            <url>http://contd.cleo.com/nexus/content/groups/public/</url>
-            <releases>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
